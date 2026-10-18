@@ -23,7 +23,7 @@ func InitDB() {
 }
 
 func createTables() {
-	createEventsTable := `
+	query := `
 	CREATE TABLE IF NOT EXISTS events (
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		name TEXT NOT NULL,
@@ -34,7 +34,7 @@ func createTables() {
 	)
 	`
 
-	_, err := DB.Exec(createEventsTable)
+	_, err := DB.Exec(query)
 
 	if err != nil {
 		panic("Could not create events table.")
