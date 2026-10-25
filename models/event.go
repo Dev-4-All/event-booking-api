@@ -37,6 +37,14 @@ func (e Event) Update() error {
 	return err
 }
 
+func (e Event) Delete() error {
+	query := "DELETE FROM events WHERE id = ?"
+
+	_, err := db.DB.Exec(query, e.Id)
+
+	return err
+}
+
 func GetAllEvents() ([]Event, error) {
 	query := "SELECT * FROM events"
 
