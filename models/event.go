@@ -22,11 +22,19 @@ func (e Event) Save() error {
 
 	_, err := db.DB.Exec(query, e.Name, e.Description, e.Location, e.DateTime, e.UserId)
 
-	if err != nil {
-		return err
-	}
+	return err
+}
 
-	return nil
+func (e Event) Update() error {
+	query := `
+	UPDATE events
+	SET name = ?, description = ?, location = ?, date_time = ?
+	WHERE id = ?
+	`
+
+	_, err := db.DB.Exec(query, e.Name, e.Description, e.Location, e.DateTime, e.Id)
+
+	return err
 }
 
 func GetAllEvents() ([]Event, error) {
