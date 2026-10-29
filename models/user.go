@@ -1,6 +1,9 @@
 package models
 
-import "event-booking-api/db"
+import (
+	"event-booking-api/db"
+	"event-booking-api/utils"
+)
 
 type User struct {
 	Id       int64
@@ -11,7 +14,13 @@ type User struct {
 func (u User) Save() error {
 	query := "INSERT INTO users(email, password) VALUES (?, ?)"
 
-	_, err := db.DB.Exec(query, u.Email, u.Password)
+	hashedPassword, err := utils.HashPassword(u.Password)
+
+	if err != nil {
+		return err
+	}
+
+	_, err = db.DB.Exec(query, u.Email, hashedPassword)
 
 	return err
 }
