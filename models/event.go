@@ -16,7 +16,7 @@ type Event struct {
 
 func (e Event) Save() error {
 	query := `
-	INSERT INTO events (name, description, location, date_time, user_id)
+	INSERT INTO events(name, description, location, date_time, user_id)
 	VALUES (?, ?, ?, ?, ?)
 	`
 
